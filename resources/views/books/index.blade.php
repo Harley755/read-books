@@ -39,7 +39,11 @@
                                 @foreach ($books as $book)
                                     <div tabindex="0" class="focus:outline-none mx-2 w-72 xl:mb-0 mb-8">
                                         <div>
-                                            <img alt="person capturing an image" src="https://cdn.tuk.dev/assets/templates/classified/Bitmap (1).png" tabindex="0" class="focus:outline-none w-full h-44" />
+                                            @if ($book->image->image_path)
+                                                <img alt="person capturing an image" src="{{ Storage::url($book->image->image_path) }}" tabindex="0" class="focus:outline-none w-full h-44" /> 
+                                            @else
+                                                <img alt="person capturing an image" src="https://cdn.tuk.dev/assets/templates/classified/Bitmap (1).png" tabindex="0" class="focus:outline-none w-full h-44" />
+                                            @endif
                                         </div>
                                         <div class="bg-white">
                                             <div class="flex items-center justify-between px-1 pt-4">

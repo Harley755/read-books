@@ -12,7 +12,7 @@
                     <div class="flex justify-between items-center pb-4 bg-white dark:bg-gray-900">
                         
                         <div>
-                            <a href="{{route('images.create') }}" class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l rounded-r  hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Add new author</a>
+                            <a href="{{ route('images.create') }}" class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l rounded-r  hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Add new image</a>
                         </div>
                         
                         <div class="relative">
@@ -35,7 +35,10 @@
                                         </div>
                                     </th>
                                     <th scope="col" class="py-3 px-20">
-                                        Name
+                                        Image
+                                    </th>
+                                    <th scope="col" class="py-3 px-20">
+                                        For
                                     </th>
                                     <th scope="col" class="py-3 px-20">
                                         Date
@@ -46,7 +49,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
+                                @foreach ($images as $image)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <td class="p-4 w-4">
                                             <div class="flex items-center">
@@ -55,13 +59,16 @@
                                             </div>
                                         </td>
                                         <td class="py-4 px-20">
-                                        
+                                            <img src="{{ Storage::url($image->image_path) }}" alt="Image" class="w-24">
                                         </td>
                                         <td class="py-4 px-20">
-                                        
+                                            {{ $image->imageable_type }}
+                                        </td>
+                                        <td class="py-4 px-20">
+                                            {{ $image->created_at }}
                                         </td>
                                         <td class="py-4 px-20 flex items-center gap-x-1">
-                                            <a href="" class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l rounded-r  hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Edit</a> 
+                                            <a href="{{ route('images.edit', $image) }}" class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l rounded-r  hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Edit</a> 
                                             <form action="" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -69,6 +76,7 @@
                                             </form>
                                         </td>
                                     </tr>
+                                @endforeach
                                
                             </tbody>
                         </table>
